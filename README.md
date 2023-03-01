@@ -7,4 +7,4 @@
 
 4. Figure4.9.m用于画如图所示的分布图
 
-![image-20230301103935127](C:\Users\Spicydel\AppData\Roaming\Typora\typora-user-images\image-20230301103935127.png)
+![image-20230301103935127](https://github.com/ydsmd/chapterFour/blob/main/IMG/figure4_9.png)
