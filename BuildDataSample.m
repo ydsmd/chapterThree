@@ -3,7 +3,7 @@ clc;clear;
 %% 基本设置
 vkmh_set = [50 60 70 80 90 100];
 N_set = [6 7 8 9 10];
-length_set = [10e-3 20e-3 30e-3 40e-3 50e-3];
+length_set = [20e-3 30e-3 40e-3 50e-3 60e-3 ];
 cD_Energy_entropy = zeros(length(N_set),1);
 cA_Energy_entropy = zeros(length(N_set),1);
 Wavelet_Families = 'dmey';

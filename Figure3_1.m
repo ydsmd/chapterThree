@@ -1,12 +1,16 @@
-%%%%%
-%在运行前需要先加载数据集文件夹
-%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Figure3_1.m%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%          本文件绘制论文图3.1                                                %
+%          在运行前需要先加载数据集文件夹                                     %
+%          作者：余道洪                                                       %
+%          修改日期：2023.5.4                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clc;clear;
-Crusie_set=[10e-3 20e-3 30e-3 40e-3 50e-3];
+Crusie_set=[20e-3 30e-3 40e-3 50e-3 60e-3];
 vkmh_set = [50 60 70 80 90 100];
 N_set = [6 7 8 9 10];
-positon = 105;
+L = 210;
+positon = L*0.45;
 Featureset = zeros(66,10);
 Labelset = zeros(66,1);
 Labelset(1:30)= 1;
@@ -68,12 +72,9 @@ end
 
 
 tmpdataset = Featureset(Featureset(:,10)==50,:);
-% tmpdataset(10,:)=tmpdataset(9,:);
-% tmpdataset(11:12,:)=tmpdataset(9:10,:);
 tmplabel = Labelset(Featureset(:,10)==50,:);
-% tmplabel(10,:)=tmplabel(9,:);
-% tmplabel(11:12,:)=tmplabel(9:10,:);
 timeDominName =  {'平均值';'均方根值';'歪度值';'峭度值';'脉冲因子';'裕度因子';'峰值因子';'标准差值';'方根幅值'};
+
 for index = 2:9
 
 Z = zeros(5,3);
@@ -89,14 +90,13 @@ for k = 1:length(b)
     b(k).CData = zdata;
     b(k).FaceColor = 'interp';
 end
-colorbar
+% colorbar
 view(60,20);
 ylabel('损伤程度','Fontname','宋体','FontSize',18);
 xlabel('损伤类型','Fontname','宋体','FontSize',18);
-zlabel(['log(',timeDominName{index},')'],'Fontname','宋体','FontSize',18);
-set(gca,'yticklabel',{'cA0','cA0','30mm/8阶','40mm/9阶','50mm/10阶'},'FontSize',18);
+zlabel(['log(',timeDominName{index},')'],'Fontname','宋体','FontSize',18);set(gca,'yticklabel',{'20mm/6阶','30mm/7阶','40mm/8阶','50mm/9阶','60mm/10阶'},'FontSize',18);
 set(gca,'xticklabel',{'擦伤','多边形','健康'},'FontSize',18);
-set(h,'position',[150,100,750,650]);
+set(h,'position',[150,100,850,650]);
 
 end
 index = 1;
@@ -113,12 +113,12 @@ for k = 1:length(b)
     b(k).CData = zdata;
     b(k).FaceColor = 'interp';
 end
-colorbar
+% colorbar
 view(60,20);
 ylabel('损伤程度','Fontname','宋体','FontSize',18);
 xlabel('损伤类型','Fontname','宋体','FontSize',18);
-zlabel(['log(',timeDominName{1},')'],'Fontname','宋体','FontSize',18);
-set(gca,'yticklabel',{'10mm/6阶','20mm/7阶','30mm/88阶','40mm/9阶','50mm/10阶'},'FontSize',18);
+zlabel(timeDominName{index},'Fontname','宋体','FontSize',18);
+set(gca,'yticklabel',{'20mm/7阶','30mm/8阶','40mm/9阶','50mm/10阶','60mm/6阶',},'FontSize',18);
 set(gca,'xticklabel',{'擦伤','多边形','健康'},'FontSize',18);
-set(h,'position',[150,100,750,650]);
+set(h,'position',[150,100,850,650]);
             

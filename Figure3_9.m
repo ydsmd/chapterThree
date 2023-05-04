@@ -1,8 +1,11 @@
-%%%%%
-%在运行前需要先加载数据集文件夹
-%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%Figure3_9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         本文件用于绘制论文图3.9，                          %
+%                         运行前需要先加载文件夹，并对应修改position          %
+%                         作者：余道洪                                      %
+%                         修改日期：2023.4.13                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clc;clear;
-Crusie_set=[10e-3 20e-3 30e-3 40e-3 50e-3];
+Crusie_set=[20e-3 30e-3 40e-3 50e-3 60e-3];
 vkmh_set = [50 60 70 80 90 100];
 N_set = [6 7 8 9 10];
 Featureset = zeros(66,9);
@@ -21,7 +24,7 @@ for i = 1 : length(vkmh_set)
     period = pi*0.42/(v);
     part1 = round((mid-period)/(1e-3)):round((mid+period)/(1e-3));
     for j = 1:length(Crusie_set)
-        eval(['load Crusie_',num2str(Crusie_set(j)),'_spd_',num2str(vkmh_set(i)),'_onW2.mat']);
+        eval(['load Crusie_',num2str(Crusie_set(j)),'_spd_',num2str(vkmh_set(i)),'_onW1.mat']);
         xp1 = ACC(part1);
         tp1 = time(part1);
         X = xp1;
@@ -39,7 +42,7 @@ for i = 1 : length(vkmh_set)
     period = pi*0.42/(v);
     part1 = round((mid-period)/(1e-3)):round((mid+period)/(1e-3));
     for j = 1:length(N_set)
-        eval(['load Poly_',num2str(N_set(j)),'_spd_',num2str(vkmh_set(i)),'_onW2.mat']);
+        eval(['load Poly_',num2str(N_set(j)),'_spd_',num2str(vkmh_set(i)),'_onW1.mat']);
         xp1 = ACC(part1);
         tp1 = time(part1);
 
@@ -58,7 +61,7 @@ for i = 1 : length(vkmh_set)
     mid2 = (position+2.6)/(v);
     period = pi*0.42/(v);
     part1 = round((mid-period)/(1e-3)):round((mid+period)/(1e-3));
-    eval(['load Good_spd_',num2str(vkmh_set(i)),'_onW2.mat']);
+    eval(['load Good_spd_',num2str(vkmh_set(i)),'_onW1.mat']);
     xp1 = ACC(part1);
     tp1 = time(part1);
     X = xp1;
@@ -83,9 +86,9 @@ hold on
 end
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cD分量的样本熵分布 ','FontSize',18);
-plot([40:110],0.64*ones(1,71),'--','Color',[250 127 111]/255,'LineWidth',2);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+title('{\itcD}分量的样本熵分布 ','FontSize',18);
+plot([40:110],0.74*ones(1,71),'--','Color',[250 127 111]/255,'LineWidth',2);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 
 set(h,'position',[150,100,550,450]);
 prettyAxes().ggray()
@@ -106,11 +109,11 @@ hold on
 end
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cA分量的样本熵分布 ','FontSize',18);
+title('{\itcA}分量的样本熵分布 ','FontSize',18);
 plot([40,80],[0.62,1.2],'--','Color',[250 127 111]/255,'LineWidth',2);
 hold on
 plot([80,110],[1.2,0.86],'--','Color',[250 127 111]/255,'LineWidth',2);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 set(h,'position',[150,100,550,450]);
 prettyAxes().ggray()
 %% cA1
@@ -129,11 +132,11 @@ set(H(6:10),'Color',[255 90 122]/255,'Marker','+','MarkerSize',8,'LineWidth',2);
 set(H(11),'Color',[130 176 210]/255,'Marker','^','MarkerSize',8,'LineWidth',2);
 hold on 
 end
-plot([40,110],[0.2,0.45],'--','Color',[250 127 111]/255,'LineWidth',2);;
+
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cA_{1}分量的样本熵分布 ','FontSize',18);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+title('{\itcA}_{1}分量的样本熵分布 ','FontSize',18);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 set(h,'position',[150,100,550,450]);
 xlim([40 110])
 prettyAxes().ggray()
@@ -155,8 +158,54 @@ end
 
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cA_{2}分量的样本熵分布 ','FontSize',18);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+title('{\itcA}_{2}分量的样本熵分布 ','FontSize',18);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
+set(h,'position',[150,100,550,450]);
+xlim([40 110])
+prettyAxes().ggray()
+%% cA3
+for i = 1 : length(vkmh_set)
+v = vkmh_set(i);
+tmpdataset = Featureset(Featureset(:,9)==v,:);
+tmplabel = Labelset(Featureset(:,9)==v,:);
+y1 = tmpdataset(1:5,5);
+y2 = tmpdataset(6:10,5);
+y3 = tmpdataset(11,5);
+h = figure(5)
+H = plot(v,y1,v,y2,v,y3);
+
+set(H(1:5),'Color',[142 207 201]/255,'Marker','o','MarkerSize',8,'LineWidth',2);
+set(H(6:10),'Color',[255 90 122]/255,'Marker','+','MarkerSize',8,'LineWidth',2);
+set(H(11),'Color',[130 176 210]/255,'Marker','^','MarkerSize',8,'LineWidth',2);
+hold on 
+end
+xlabel('速度V(km/h)','FontSize',18);
+ylabel('样本熵SampEn','FontSize',18);
+title('{\itcA}_{3}分量的样本熵分布 ','FontSize',18);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
+set(h,'position',[150,100,550,450]);
+xlim([40 110])
+prettyAxes().ggray()
+%% cA4
+for i = 1 : length(vkmh_set)
+v = vkmh_set(i);
+tmpdataset = Featureset(Featureset(:,9)==v,:);
+tmplabel = Labelset(Featureset(:,9)==v,:);
+y1 = tmpdataset(1:5,6);
+y2 = tmpdataset(6:10,6);
+y3 = tmpdataset(11,6);
+h = figure(6)
+H = plot(v,y1,v,y2,v,y3);
+set(H(1:5),'Color',[142 207 201]/255,'Marker','o','MarkerSize',8,'LineWidth',2);
+set(H(6:10),'Color',[255 90 122]/255,'Marker','+','MarkerSize',8,'LineWidth',2);
+set(H(11),'Color',[130 176 210]/255,'Marker','^','MarkerSize',8,'LineWidth',2);
+hold on 
+end
+
+xlabel('速度V(km/h)','FontSize',18);
+ylabel('样本熵SampEn','FontSize',18);
+title('{\itcA}_{4}分量的样本熵分布 ','FontSize',18);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 set(h,'position',[150,100,550,450]);
 xlim([40 110])
 prettyAxes().ggray()
@@ -168,7 +217,7 @@ tmplabel = Labelset(Featureset(:,9)==v,:);
 y1 = tmpdataset(1:5,7);
 y2 = tmpdataset(6:10,7);
 y3 = tmpdataset(11,7);
-h = figure(5)
+h = figure(7)
 H = plot(v,y1,v,y2,v,y3);
 set(H(1:5),'Color',[142 207 201]/255,'Marker','o','MarkerSize',8,'LineWidth',2);
 set(H(6:10),'Color',[255 90 122]/255,'Marker','+','MarkerSize',8,'LineWidth',2);
@@ -177,10 +226,10 @@ hold on
 end
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cA_{5}分量的样本熵分布 ','FontSize',18);
+title('{\itcA}_{5}分量的样本熵分布 ','FontSize',18);
 xlim([40 110])
 set(h,'position',[150,100,550,450]);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 prettyAxes().ggray()
 %% cA6
 for i = 1 : length(vkmh_set)
@@ -191,7 +240,7 @@ y1 = tmpdataset(1:5,8);
 y2 = tmpdataset(6:10,8);
 y3 = tmpdataset(11,8);
 
-h = figure(6)
+h = figure(8)
 H = plot(v,y1,v,y2,v,y3);
 set(H(1:5),'Color',[142 207 201]/255,'Marker','o','MarkerSize',8,'LineWidth',2);
 set(H(6:10),'Color',[255 90 122]/255,'Marker','+','MarkerSize',8,'LineWidth',2);
@@ -200,8 +249,8 @@ hold on
 end
 xlabel('速度V(km/h)','FontSize',18);
 ylabel('样本熵SampEn','FontSize',18);
-title('cA_{6}分量的样本熵分布 ','FontSize',18);
-legend(H([1 6 11]),'擦伤','多边形','健康');
+title('{\itcA}_{6}分量的样本熵分布 ','FontSize',18);
+legend(H([1 6 11]),'擦伤','多边形','健康','FontSize',12);
 set(h,'position',[150,100,550,450]);
 % plot([40,110],[0.26,0.26],'--m');
 hold on 

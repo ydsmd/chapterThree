@@ -1,8 +1,14 @@
-%%%%%
-%在运行前需要先加载数据集文件夹
-%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% Figure3_8.m%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%          本文件绘制论文图3.8                                                %
+%          在运行前需要先加载数据集文件夹dataset_210m_0.55L_A1_W1             %
+%          作者：余道洪                                                       %
+%          修改日期：2023.5.4                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%在运行前需要先加载数据集文件夹dataset_210m_0.55L_A1_W1
+
 clc;clear;
-Crusie_set=[10e-3 20e-3 30e-3 40e-3 50e-3];
+Crusie_set=[20e-3 30e-3 40e-3 50e-3 60e-3];
 vkmh_set = [50 60 70 80 90 100];
 N_set = [6 7 8 9 10];
 Featureset = zeros(66,9);
@@ -68,10 +74,10 @@ for i = 1 : length(vkmh_set)
 end
 
 % 
-v = 80;
+v = 50;
 tmpdataset = Featureset(Featureset(:,9)==v,:);
 tmplabel = Labelset(Featureset(:,9)==v,:);
-dwtindex = {'cD','cA','cA1','cA2','cA3','cA4','cA5','cA6'};
+dwtindex = {'\itcD','\itcA','{\itcA}_{1}','{\itcA}_{2}','{\itcA}_{3}','{\itcA}_{4}','{\itcA}_{5}','{\itcA}_{6}'};
 for index = 1:8
 Z = zeros(5,3);
 Z(:,1) = tmpdataset(1:5,index);
@@ -84,12 +90,12 @@ for k = 1:length(b)
     b(k).CData = zdata;
     b(k).FaceColor = 'interp';
 end
-colorbar
+% colorbar
 view(-60,20);
 ylabel('损伤程度','Fontname','宋体','FontSize',18);
 xlabel('损伤类型','Fontname','宋体','FontSize',18);
 zlabel(dwtindex{index},'Fontname','宋体','FontSize',18);
-set(gca,'yticklabel',{'10mm/6阶','20mm/7阶','30mm/8阶','40mm/9阶','50mm/10阶'},'FontSize',18);
+set(gca,'yticklabel',{'20mm/6阶','30mm/7阶','40mm/8阶','50mm/9阶','60mm/10阶'},'FontSize',18);
 set(gca,'xticklabel',{'擦伤','多边形','健康'},'FontSize',18);
-set(h,'position',[150,100,750,650]);
+set(h,'position',[150,100,850,650]);
 end
